@@ -21,7 +21,7 @@
         android:layout_height="3dp"
         android:progressDrawable="@drawable/web_progress"/>
 
-    <me.jokey.mvp.mvp.ui.widget.MyScrollWebView
+    <me.jokey.mvp.view.widget.MyScrollWebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
