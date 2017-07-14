@@ -23,8 +23,7 @@ import me.jokey.mvp.view.activity.ZhihuThemeActivity;
 import me.jokey.mvp.view.adapter.ZhihuThemeAdapter;
 import me.jokey.mvp.model.entity.zhihu.OtherBean;
 import me.jokey.mvp.utils.LogUtils;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
+
 
 /**
  * Created by wz on 2017/6/20 14:44.
@@ -127,6 +126,8 @@ public class ZhihuThemeFragment extends BaseFrameFragment<ZhihuThemePresenter, Z
         LogUtils.debugInfo(data.toString());
         mAdapter.setNewData(data);
         mAdapter.loadMoreComplete();
+        if (mSwipeRefreshLayout.isRefreshing())
+            mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -137,9 +138,7 @@ public class ZhihuThemeFragment extends BaseFrameFragment<ZhihuThemePresenter, Z
     @Override
     public void onRequestStart() {
         super.onRequestStart();
-        Observable.just(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(flag -> mSwipeRefreshLayout.setRefreshing(true));
+        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
@@ -147,11 +146,6 @@ public class ZhihuThemeFragment extends BaseFrameFragment<ZhihuThemePresenter, Z
         super.onRequestEnd();
         // 此方法在主线程中执行，但是onRequestStart()确实在异步线程中执行
         // 为了确保onRequestEnd()后执行，建议下列代码加个异步
-        Observable.just(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(flag -> {
-                    if (mSwipeRefreshLayout.isRefreshing())
-                        mSwipeRefreshLayout.setRefreshing(false);
-                });
+
     }
 }

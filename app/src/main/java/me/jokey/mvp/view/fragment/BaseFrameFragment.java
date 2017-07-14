@@ -2,7 +2,6 @@ package me.jokey.mvp.view.fragment;
 
 import android.os.Bundle;
 
-import me.jokey.mvp.model.BaseModel;
 import me.jokey.mvp.presenter.BasePresenter;
 import me.jokey.mvp.view.interfaceView.BaseView;
 import me.jokey.mvp.utils.TUtil;
@@ -12,7 +11,7 @@ import me.jokey.mvp.utils.TUtil;
  * BaseFrameFragment.java
  */
 
-public abstract class BaseFrameFragment<P extends BasePresenter, M extends BaseModel> extends BaseFragment implements BaseView {
+public abstract class BaseFrameFragment<P extends BasePresenter, M> extends BaseFragment implements BaseView {
 
     public P mPresenter;
 

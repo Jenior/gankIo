@@ -26,8 +26,7 @@ import me.jokey.mvp.view.adapter.GankAdapter;
 import me.jokey.mvp.model.entity.gank.ResultBean;
 import me.jokey.mvp.utils.LogUtils;
 import me.jokey.mvp.utils.ToastUtils;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
+
 
 /**
  * Created by wz on 2017/6/22 14:22.
@@ -148,30 +147,16 @@ public class GankFragment extends BaseFrameFragment<GankPresenter, GankModel> im
     @Override
     public void onRequestStart() {
         super.onRequestStart();
-        Observable.just(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(flag -> {
-                    if (mAdapter.getData().size() == 0) {
-                        mSwipeRefreshLayout.setRefreshing(true);
-                        LogUtils.debugInfo("设置加载更多 false");
-                        mAdapter.setEnableLoadMore(false);
-                    }
-                });
+        if (mAdapter.getData().size() == 0) {
+            mSwipeRefreshLayout.setRefreshing(true);
+            LogUtils.debugInfo("设置加载更多 false");
+            mAdapter.setEnableLoadMore(false);
+        }
     }
 
     @Override
     public void onRequestEnd() {
         super.onRequestEnd();
-        Observable.just(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(flag -> {
-                    if (mSwipeRefreshLayout.isRefreshing())
-                        mSwipeRefreshLayout.setRefreshing(false);
-                    if (mAdapter.getData().size() > 0) {
-                        LogUtils.debugInfo("设置加载更多 true");
-                        mAdapter.setEnableLoadMore(true);
-                    }
-                });
     }
 
     @Override
@@ -186,6 +171,14 @@ public class GankFragment extends BaseFrameFragment<GankPresenter, GankModel> im
 
     @Override
     public void loadGank(boolean isRefresh, List<ResultBean> data) {
+
+        if (mSwipeRefreshLayout.isRefreshing())
+            mSwipeRefreshLayout.setRefreshing(false);
+        if (mAdapter.getData().size() > 0) {
+            LogUtils.debugInfo("设置加载更多 true");
+            mAdapter.setEnableLoadMore(true);
+        }
+
         if (data.size() > 0) {
             if (isRefresh) {
                 mAdapter.setNewData(data);

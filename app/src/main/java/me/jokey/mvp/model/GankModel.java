@@ -1,11 +1,14 @@
 package me.jokey.mvp.model;
 
-import me.jokey.mvp.model.api.ApiFactory;
-import me.jokey.mvp.model.api.GankApi;
+import com.single.zuozuoyou.fuckrx.callback.ResultCallBack;
+import com.single.zuozuoyou.fuckrx.model.BaseObserver;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.jokey.mvp.contract.GankContract;
 import me.jokey.mvp.model.entity.gank.GankBean;
 import me.jokey.mvp.model.entity.gank.ResultBean;
-import rx.Observable;
+
 
 /**
  * Created by wz on 2017/6/22 14:24.
@@ -13,12 +16,26 @@ import rx.Observable;
  */
 
 
-public class GankModel implements GankContract.Model {
+public class GankModel extends GankContract.Model {
 
-    private GankApi gankApi = ApiFactory.getGankApiSingleton();
+
 
     @Override
-    public Observable<GankBean<ResultBean>> getGank(String type, int count, int page) {
-        return gankApi.getGank(type, count, page);
+    public void getGank(String type, int count, int page, ResultCallBack<GankBean<ResultBean>> callBack) {
+        api.getGank(type,count,page).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseObserver<GankBean<ResultBean>>() {
+
+
+            @Override
+            protected void onSuccess(GankBean<ResultBean> resultBeanGankBean) {
+                callBack.onSuccessEntity(resultBeanGankBean);
+            }
+
+            @Override
+            protected void onFail(String resultCode, String resultDesc) {
+                callBack.onFail(resultDesc);
+            }
+        });
     }
+
+
 }

@@ -32,9 +32,6 @@ import me.jokey.mvp.model.entity.zhihu.ZhihuDetail;
 import me.jokey.mvp.utils.HtmlUtil;
 import me.jokey.mvp.utils.LogUtils;
 import me.jokey.mvp.utils.ToastUtils;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 /**
@@ -119,6 +116,7 @@ public class ZhihuWebActivity extends BaseFrameActivity<ZhihuDetailPresenter, Zh
 
     @Override
     public void loadZhihuDetail(ZhihuDetail data) {
+        mProgressBar.setVisibility(View.GONE);
         shareUrl = data.getShare_url();
 
         String htmlData = HtmlUtil.createHtmlData(data.getBody(), data.getCss(), data.getJs());
@@ -139,17 +137,13 @@ public class ZhihuWebActivity extends BaseFrameActivity<ZhihuDetailPresenter, Zh
     @Override
     public void onRequestStart() {
         super.onRequestStart();
-        Observable.just(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((i) -> mProgressBar.setVisibility(View.VISIBLE));
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onRequestEnd() {
         super.onRequestEnd();
-        Observable.just(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((i) -> mProgressBar.setVisibility(View.GONE));
+
     }
 
     @Override

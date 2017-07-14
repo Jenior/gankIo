@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#45bae3</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="title_bar_bg_color">#2aa2ff</color>
+    <color name="title_bar_bg_color1">#2aa3ff</color>
+    <color name="blue_dark">#0c7ab1</color>
+    <color name="blue_light">#0eb4fe</color>
+    <color name="blue_lighter">#5ac7f9</color>
+    <color name="blue_lighter1">#8ACCFF</color>
+    <color name="blue_lighter2">#76B8EB</color>
+    <color name="transparent">#00000000</color>
+    <color name="translucent">#9000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="gray_dark">#474646</color>
+    <color name="gray">#696969</color>
+    <color name="gray_light">#a5a5a5</color>
+    <color name="gray_lighter">#cccccc</color>
+    <color name="gray_lighter1">#e5e5e5</color>
+    <color name="gray_lighter2">#eeeeee</color>
+    <color name="gray_lighter3">#f7f7f7</color>
+    <color name="gray_lighter4">#e0e0e0</color>
+    <color name="color_system_bg">#f6f9fd</color>
+
+    <color name="black">#000000</color>
+    <color name="black_33">#333333</color>
+    <color name="black_3e">#3e3e3e</color>
+    <color name="black_4c">#4c4c4c</color>
+    <color name="black_66">#666666</color>
+    <color name="black_77">#777777</color>
+    <color name="black_84">#848484</color>
+    <color name="black_99">#999999</color>
+    <color name="black_b9">#b9b9b9</color>
+    <color name="black_fd">#EFF8FD</color>
+    <color name="rippleColor">#E0EEEE</color>
+    <color name="currentPaintColor">#83d297</color>
+    <color name="greenColor">#6ad969</color>
+    <color name="greenColor_lighter">#ebf8eb</color>
+
+    <color name="orange_lighter">#f8cccc</color>
+
+    <!-- common listview-->
+    <color name="half_transparent">#8f000000</color>
+    <color name="orange">#f27242</color>
+    <color name="orange1">#ff6600</color>
+    <color name="orange2">#FB7220</color>
+    <color name="orange_status">#f8c100</color>
+
+    <color name="c_gray">#F0F0F0</color>
+    <color name="red">#FF0000</color>
+    <!--二维码-->
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+
+    <!--DownloadProgressBar-->
+    <color name="red_dark_primary_color">#D32F2F</color>
+    <color name="red_primary_color">#F44336</color>
+    <color name="red_light_primary_color">#FFCDD2</color>
+    <color name="red_text_icon_color">#FFFFFF</color>
+
+    <color name="blue_primary_color">#2196F3</color>
+    <color name="blue_light_primary_color">#BBDEFB</color>
+    <color name="blue_dark_primary_color">#1976D2</color>
+    <color name="blue_text_icon_color">#FFFFFF</color>
+
+    <color name="green_dark_primary_color">#388E3C</color>
+    <color name="green_primary_color">#4CAF50</color>
+    <color name="green_light_primary_color">#C8E6C9</color>
+    <color name="green_text_icon_color">#FFFFFF</color>
+</resources>

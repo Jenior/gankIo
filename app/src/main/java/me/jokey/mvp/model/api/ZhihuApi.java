@@ -1,13 +1,15 @@
 package me.jokey.mvp.model.api;
 
+import io.reactivex.Observable;
 import me.jokey.mvp.model.entity.zhihu.ZhihuBefore;
 import me.jokey.mvp.model.entity.zhihu.ZhihuDay;
 import me.jokey.mvp.model.entity.zhihu.ZhihuDetail;
 import me.jokey.mvp.model.entity.zhihu.ZhihuTheme;
 import me.jokey.mvp.model.entity.zhihu.ZhihuThemeDetail;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * Created by Werb on 2016/8/18.
@@ -21,17 +23,17 @@ public interface ZhihuApi {
 //    Observable<SplashImage> getSplashImage();
 
     @GET("news/latest")
-    Observable<ZhihuDay> getZhihuLatest();
+    Observable<Response<ResponseBody>> getZhihuLatest();
 
     @GET("news/before/{date}")
-    Observable<ZhihuBefore> getZhihuBeforet(@Path("date") String date);
+    Observable<Response<ResponseBody>>  getZhihuBeforet(@Path("date") String date);
 
     @GET("news/{id}")
-    Observable<ZhihuDetail> getZhihuDetail(@Path("id") String id);
+    Observable<Response<ResponseBody>>  getZhihuDetail(@Path("id") String id);
 
     @GET("themes")
-    Observable<ZhihuTheme> getZhihuThemes();
+    Observable<Response<ResponseBody>> getZhihuThemes();
 
     @GET("theme/{id}")
-    Observable<ZhihuThemeDetail> getZhihuThemeDetail(@Path("id") String id);
+    Observable<Response<ResponseBody>>  getZhihuThemeDetail(@Path("id") String id);
 }

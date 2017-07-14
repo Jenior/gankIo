@@ -2,7 +2,6 @@ package me.jokey.mvp.view.activity;
 
 import android.os.Bundle;
 
-import me.jokey.mvp.model.BaseModel;
 import me.jokey.mvp.presenter.BasePresenter;
 import me.jokey.mvp.view.interfaceView.BaseView;
 import me.jokey.mvp.utils.TUtil;
@@ -12,7 +11,7 @@ import me.jokey.mvp.utils.TUtil;
  * BaseFrameActivity
  */
 
-public abstract class BaseFrameActivity<P extends BasePresenter, M extends BaseModel> extends BaseActivity implements BaseView {
+public abstract class BaseFrameActivity<P extends BasePresenter, M> extends BaseActivity implements BaseView {
     public P mPresenter;
 
     public M mModel;

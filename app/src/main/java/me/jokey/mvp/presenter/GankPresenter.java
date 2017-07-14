@@ -1,11 +1,11 @@
 package me.jokey.mvp.presenter;
 
-import me.jokey.mvp.model.api.ApiSubscriber;
+import com.single.zuozuoyou.fuckrx.callback.ResultCallBack;
+
 import me.jokey.mvp.contract.GankContract;
 import me.jokey.mvp.model.entity.gank.GankBean;
 import me.jokey.mvp.model.entity.gank.ResultBean;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+
 
 /**
  * Created by wz on 2017/6/22 14:24.
@@ -19,31 +19,19 @@ public class GankPresenter extends GankContract.Presenter {
 
     @Override
     public void getGank(boolean isRefresh, String type) {
-
         if (isRefresh) page = 1;
         else page++;
+        mModel.getGank(type, COUNT, page, new ResultCallBack<GankBean<ResultBean>>() {
+            @Override
+            public void onFail(String error) {
+                mView.onRequestError(error);
+            }
 
-        mRxManager.add(mModel.getGank(type, COUNT, page)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(() -> mView.onRequestStart())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doAfterTerminate(() -> mView.onRequestEnd())
-                .subscribe(new ApiSubscriber<GankBean<ResultBean>>() {
+            @Override
+            public void onSuccessEntity(GankBean<ResultBean> entity) {
+                mView.loadGank(isRefresh, entity.getResults());
+            }
 
-                    @Override
-                    public void onNext(GankBean<ResultBean> resultBeanGankBean) {
-                        super.onNext(resultBeanGankBean);
-                        if (resultBeanGankBean.isSuccess())
-                            mView.loadGank(isRefresh, resultBeanGankBean.getResults());
-                    }
-
-                    @Override
-                    public void doOnError(String error) {
-                        super.doOnError(error);
-                        mView.onRequestError(error);
-                    }
-                }));
-
-
+        });
     }
 }

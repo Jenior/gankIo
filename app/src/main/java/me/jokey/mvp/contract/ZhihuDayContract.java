@@ -1,15 +1,18 @@
 package me.jokey.mvp.contract;
 
+import com.single.zuozuoyou.fuckrx.callback.ResultCallBack;
+
 import java.util.List;
 
 import me.jokey.mvp.model.BaseModel;
+import me.jokey.mvp.model.api.ZhihuApi;
 import me.jokey.mvp.presenter.BasePresenter;
 import me.jokey.mvp.view.interfaceView.BaseView;
 import me.jokey.mvp.model.entity.zhihu.StoriesBean;
 import me.jokey.mvp.model.entity.zhihu.TopStoriesBean;
 import me.jokey.mvp.model.entity.zhihu.ZhihuBefore;
 import me.jokey.mvp.model.entity.zhihu.ZhihuDay;
-import rx.Observable;
+
 
 /**
  * Created by wz on 2017/6/20 16:54.
@@ -18,10 +21,14 @@ import rx.Observable;
 
 public interface ZhihuDayContract {
 
-    interface Model extends BaseModel {
-        Observable<ZhihuDay> getZhihuLatest();
+    abstract class Model extends BaseModel<ZhihuApi> {
+        public Model() {
+            super(ZhihuApi.class);
+        }
 
-        Observable<ZhihuBefore> getZhihuBefore(String date);
+        public abstract void getZhihuLatest(ResultCallBack<ZhihuDay> callBack);
+
+        public abstract void getZhihuBefore(String date,ResultCallBack<ZhihuBefore> callBack);
     }
 
     interface View extends BaseView {

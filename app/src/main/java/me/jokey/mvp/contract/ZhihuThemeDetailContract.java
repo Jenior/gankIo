@@ -1,10 +1,12 @@
 package me.jokey.mvp.contract;
 
+import com.single.zuozuoyou.fuckrx.callback.ResultCallBack;
+
 import me.jokey.mvp.model.BaseModel;
+import me.jokey.mvp.model.api.ZhihuApi;
 import me.jokey.mvp.presenter.BasePresenter;
 import me.jokey.mvp.view.interfaceView.BaseView;
 import me.jokey.mvp.model.entity.zhihu.ZhihuThemeDetail;
-import rx.Observable;
 
 /**
  * Created by wz on 2017/6/22 12:01.
@@ -13,8 +15,12 @@ import rx.Observable;
 
 public interface ZhihuThemeDetailContract {
 
-    interface Model extends BaseModel {
-        Observable<ZhihuThemeDetail> getZhihuThemeDetail(String id);
+    abstract class  Model extends BaseModel<ZhihuApi> {
+        public Model() {
+            super(ZhihuApi.class);
+        }
+
+      public abstract void getZhihuThemeDetail(String id, ResultCallBack<ZhihuThemeDetail> callBack);
     }
 
     interface View extends BaseView {

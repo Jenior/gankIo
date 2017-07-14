@@ -32,8 +32,7 @@ import me.jokey.mvp.model.entity.zhihu.StoriesBean;
 import me.jokey.mvp.model.entity.zhihu.TopStoriesBean;
 import me.jokey.mvp.utils.LogUtils;
 import me.jokey.mvp.utils.ToastUtils;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
+
 
 /**
  * Created by wz on 2017/6/20 14:44.
@@ -170,6 +169,12 @@ public class ZhihuDayFragment extends BaseFrameFragment<ZhihuDayPresenter, Zhihu
 
     @Override
     public void loadZhihuLatest(List<StoriesBean> data) {
+        if (mSwipeRefreshLayout.isRefreshing())
+            mSwipeRefreshLayout.setRefreshing(false);
+        if (mAdapter.getData().size() > 0) {
+            LogUtils.debugInfo("设置加载更多 true");
+            mAdapter.setEnableLoadMore(true);
+        }
         LogUtils.debugInfo(data.toString());
         if (data.size() > 0) {
             mAdapter.setNewData(data);
@@ -179,6 +184,12 @@ public class ZhihuDayFragment extends BaseFrameFragment<ZhihuDayPresenter, Zhihu
 
     @Override
     public void loadZhihuBefore(List<StoriesBean> data) {
+        if (mSwipeRefreshLayout.isRefreshing())
+            mSwipeRefreshLayout.setRefreshing(false);
+        if (mAdapter.getData().size() > 0) {
+            LogUtils.debugInfo("设置加载更多 true");
+            mAdapter.setEnableLoadMore(true);
+        }
         LogUtils.debugInfo(data.toString());
         if (data.size() > 0) {
             mAdapter.addData(mAdapter.getData().size(), data);
@@ -199,28 +210,15 @@ public class ZhihuDayFragment extends BaseFrameFragment<ZhihuDayPresenter, Zhihu
     @Override
     public void onRequestStart() {
         super.onRequestStart();
-        Observable.just(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(flag -> {
-                    mSwipeRefreshLayout.setRefreshing(true);
-                    LogUtils.debugInfo("设置加载更多 false");
-                    mAdapter.setEnableLoadMore(false);
-                });
+        mSwipeRefreshLayout.setRefreshing(true);
+        LogUtils.debugInfo("设置加载更多 false");
+        mAdapter.setEnableLoadMore(false);
     }
 
     @Override
     public void onRequestEnd() {
         super.onRequestEnd();
-        Observable.just(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(flag -> {
-                    if (mSwipeRefreshLayout.isRefreshing())
-                        mSwipeRefreshLayout.setRefreshing(false);
-                    if (mAdapter.getData().size() > 0) {
-                        LogUtils.debugInfo("设置加载更多 true");
-                        mAdapter.setEnableLoadMore(true);
-                    }
-                });
+
     }
 
     @Override

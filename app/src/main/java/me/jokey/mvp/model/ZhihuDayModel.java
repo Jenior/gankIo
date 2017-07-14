@@ -1,28 +1,55 @@
 package me.jokey.mvp.model;
 
-import me.jokey.mvp.model.api.ApiFactory;
-import me.jokey.mvp.model.api.ZhihuApi;
+import com.single.zuozuoyou.fuckrx.callback.ResultCallBack;
+import com.single.zuozuoyou.fuckrx.model.BaseObserver;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.jokey.mvp.contract.ZhihuDayContract;
 import me.jokey.mvp.model.entity.zhihu.ZhihuBefore;
 import me.jokey.mvp.model.entity.zhihu.ZhihuDay;
-import rx.Observable;
 
 /**
  * Created by wz on 2017/6/20 16:59.
  * ZhihuDayModel
  */
 
-public class ZhihuDayModel implements ZhihuDayContract.Model {
+public class ZhihuDayModel extends ZhihuDayContract.Model {
 
-    ZhihuApi mZhihuApi = ApiFactory.getZhihuApiSingleton();
+
+    public ZhihuDayModel() {
+        super();
+    }
+
 
     @Override
-    public Observable<ZhihuDay> getZhihuLatest() {
-        return mZhihuApi.getZhihuLatest();
+    public void getZhihuLatest(ResultCallBack<ZhihuDay> callBack) {
+        api.getZhihuLatest().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseObserver<ZhihuDay>() {
+            @Override
+            protected void onSuccess(ZhihuDay zhihuDay) {
+                callBack.onSuccessEntity(zhihuDay);
+            }
+
+            @Override
+            protected void onFail(String resultCode, String resultDesc) {
+                callBack.onFail(resultDesc);
+            }
+        });
     }
 
     @Override
-    public Observable<ZhihuBefore> getZhihuBefore(String date) {
-        return mZhihuApi.getZhihuBeforet(date);
+    public void getZhihuBefore(String date, ResultCallBack<ZhihuBefore> callBack) {
+        api.getZhihuBeforet(date).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseObserver<ZhihuBefore>() {
+
+            @Override
+            protected void onSuccess(ZhihuBefore zhihuBefore) {
+                callBack.onSuccessEntity(zhihuBefore);
+            }
+
+            @Override
+            protected void onFail(String resultCode, String resultDesc) {
+                callBack.onFail(resultDesc);
+            }
+        });
     }
 }

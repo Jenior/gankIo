@@ -155,13 +155,13 @@ public class PictureViewPagerActivity extends BaseFrameActivity<DownImagePresent
     @Override
     public void onRequestEnd() {
         super.onRequestEnd();
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
     }
 
     @Override
     public void loadFile(File file) {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
         sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
         startShare(file);
     }
